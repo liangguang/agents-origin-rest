@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration scan="true">
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.err</target>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+		</layout>
+	</appender> -->
+
+	<appender name="RollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+
+		<file>logs/agent.log</file>
+		<append>true</append>
+
+		<!-- 可让每天产生一个日志文件，最多 100 个，自动回滚 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/agent-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>100</maxHistory>
+		</rollingPolicy>
+
+		<!-- 下面这段注释的代码可以在日志文件超过 50MB 时进行归档，并且归档文件后缀只要是 .zip 或 .gz 就会自动压缩日志归档 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>logs/agent.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>7</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern><![CDATA[%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger - %msg%n]]></pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="com.my" level="DEBUG" />
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="STDERR" />
+
+		<appender-ref ref="RollingFile" />
+	</root>
+</configuration>

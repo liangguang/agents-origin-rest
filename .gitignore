@@ -1,0 +1,40 @@
+.vscode
+.settings
+.classpath
+.project
+
+/.gradle/
+
+/config/*.xml
+/config/*.yml
+/config/*.properties
+/config/*.cfg
+/config/*.ini
+/config/adapters
+
+/bin/
+/build/
+/data/
+/logs/
+/work/
+
+# dependencies
+**/node_modules
+
+# testing
+**/coverage
+
+# production
+**/build
+
+# misc
+**/.DS_Store
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea

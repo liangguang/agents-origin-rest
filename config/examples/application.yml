@@ -1,0 +1,6 @@
+server:
+  port: 16666
+  contextPath: /n3-agents
+  
+logging:
+  config: ./config/logback-spring.xml
